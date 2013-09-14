@@ -16,17 +16,17 @@
     <AppXManifest Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-09-14T12:30:36.827</Modified>
+      <Modified>2013-09-14T15:15:37.127</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\bin\Debug\ZhihuDailyForWindows8.exe">
       <PackagePath>ZhihuDailyForWindows8.exe</PackagePath>
-      <Modified>2013-09-14T12:54:45.396</Modified>
+      <Modified>2013-09-14T15:17:32.797</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\bin\Debug\ZhihuDailyForWindows8.pdb">
       <PackagePath>ZhihuDailyForWindows8.pdb</PackagePath>
-      <Modified>2013-09-14T12:54:45.364</Modified>
+      <Modified>2013-09-14T15:17:32.737</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\Assets\Logo.png">
       <PackagePath>Assets\Logo.png</PackagePath>
@@ -103,7 +103,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2013-09-14T12:30:35.868</Modified>
+      <Modified>2013-09-14T15:15:36.562</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

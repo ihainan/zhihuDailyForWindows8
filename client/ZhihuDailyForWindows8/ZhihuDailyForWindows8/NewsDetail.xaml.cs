@@ -51,9 +51,9 @@ namespace ZhihuDailyForWindows8
             string htmlCode = contentXML["body"];
             wv.NavigateToString(htmlCode);
 
-            DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
-            dataTransferManager.DataRequested += new TypedEventHandler<DataTransferManager,
-                DataRequestedEventArgs>(this.ShareImageHandler);
+            // DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
+            // dataTransferManager.DataRequested += new TypedEventHandler<DataTransferManager,
+               //  DataRequestedEventArgs>(this.ShareImageHandler);
 
         }
 
