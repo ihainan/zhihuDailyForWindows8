@@ -66,9 +66,58 @@ class ZhihuDaily{
 				'thumbnail' => $json_data['thumbnail'],
 				);
 
-		/* covert array into XML file and then show the content */
+		/* handle the html code */
+		$results["body"] = $this -> htmlHandler($results["body"], $results["css"], $results["js"]);
+
+		/*covert array into XML file and then show the content */
 		$this -> arrayToXML($results, $xml_data);
 		echo $xml_data -> asXML();
+	}
+
+	/* HTML Handler */
+	private function htmlHandler($html_code, $css_urls = null, $js_urls = null){
+		/* load html */
+		$dom = new DOMDocument("1.0", "utf-8");
+		$meta = '<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>';
+		@$dom->loadHTML($meta . $html_code);
+		$dom -> formatOutput = true;
+
+		/* remove headline */
+		$divs = $dom -> getElementsByTagName("div");
+		for($i = 0; $i < $divs -> length; ++$i){
+			$node = $divs -> item($i);
+			if($node -> attributes -> item(0) -> value == "headline"){
+				$node -> parentNode -> removeChild($node);
+				break;
+			}
+		}
+
+		/* head */
+		$head_node = $dom -> getElementsByTagName("head") -> item(0);
+
+		/* css */
+		foreach($css_urls as $css_url){
+			$css_node = $dom -> createElement("link");
+			$elm_type_attr = $dom -> createAttribute('type');
+			$elm_type_attr->value = 'text/css';
+			$css_node -> appendChild($elm_type_attr);	
+			$elm_type_attr = $dom -> createAttribute('rel');
+			$elm_type_attr->value = 'stylesheet';
+			$css_node -> appendChild($elm_type_attr);	
+			$elm_type_attr = $dom -> createAttribute('href');
+			$elm_type_attr->value = $css_url;
+			$css_node -> appendChild($elm_type_attr);	
+			$head_node -> appendChild($css_node);
+		}
+		foreach($js_urls as $js_url){
+			$js_node = $dom -> createElement("script");
+			$elm_type_attr = $dom -> createAttribute('src');
+			$elm_type_attr->value = $js_url;
+			$js_node -> appendChild($elm_type_attr);	
+			$head_node -> appendChild($js_node);
+		}
+
+		return $dom -> saveHTML();
 	}
 
 	/* show special content if no content can be shown */
