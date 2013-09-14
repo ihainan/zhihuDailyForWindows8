@@ -16,17 +16,17 @@
     <AppXManifest Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-09-14T10:46:16.728</Modified>
+      <Modified>2013-09-14T12:30:36.827</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\bin\Debug\ZhihuDailyForWindows8.exe">
       <PackagePath>ZhihuDailyForWindows8.exe</PackagePath>
-      <Modified>2013-09-14T12:24:01.471</Modified>
+      <Modified>2013-09-14T12:54:45.396</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\bin\Debug\ZhihuDailyForWindows8.pdb">
       <PackagePath>ZhihuDailyForWindows8.pdb</PackagePath>
-      <Modified>2013-09-14T12:24:01.437</Modified>
+      <Modified>2013-09-14T12:54:45.364</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\Assets\Logo.png">
       <PackagePath>Assets\Logo.png</PackagePath>
@@ -95,7 +95,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\bin\Debug\Common\StandardStyles.xaml">
       <PackagePath>Common\StandardStyles.xaml</PackagePath>
-      <Modified>2013-09-14T08:48:47.797</Modified>
+      <Modified>2013-09-14T12:54:42.560</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\bin\Debug\MainPage.xaml">
       <PackagePath>MainPage.xaml</PackagePath>
@@ -103,7 +103,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2013-09-14T10:20:50.152</Modified>
+      <Modified>2013-09-14T12:30:35.868</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
