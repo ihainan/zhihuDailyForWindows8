@@ -1,0 +1,8 @@
+name:zhdaily
+version:1
+accesskey:zwln2ljo5x
+cron:
+- description: get xml file
+  url: cron/cron_get_xml.php
+  schedule: every 30 mins
+  timezone: Beijing
