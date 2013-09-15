@@ -12,7 +12,7 @@ class ZhihuDaily{
 	private $titles_api_url = "http://news.at.zhihu.com/api/1.2/news/before/";
 
 	/* show the news items */
-	public function showTities($date = null){
+	public function showTitles($date = null){
 		if($date != null)
 			$this -> titles_api_url = $this -> titles_api_url.($date + 1);
 		else
@@ -40,6 +40,7 @@ class ZhihuDaily{
 		$xml_data = new SimpleXMLElement("<?xml version=\"1.0\" encoding=\"GB2312\"?><".$root."></".$root.">");
 		$this -> arrayToXML($results, $xml_data);
 		echo $xml_data -> asXML();
+		return $xml_data;
 	}
 
 	/* get and show the special news as XML file */

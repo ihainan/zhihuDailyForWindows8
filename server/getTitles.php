@@ -12,5 +12,5 @@ header("text/xml");
 require_once('ZhihuDaily.class.php');
 @$date = $_GET['date'];
 $zhihu = new ZhihuDaily();
-$zhihu -> showTities($date);
+$zhihu -> showTitles($date);
 ?>
