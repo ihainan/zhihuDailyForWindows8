@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>IDABING</Machine>
+    <WindowsUser>ihainan</WindowsUser>
+    <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
+    <PackageArchitecture>neutral</PackageArchitecture>
+    <RegisteredManifestChecksum>9B18E780F63421C673A5BE0BFB016C66F142BC375423AD0A135F776981934CC7</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>1c10797f-d964-442d-9964-271e60c85516_1.0.0.0_neutral__hxjwwq6v1rvya</RegisteredPackageMoniker>
+    <RegisteredUserModeAppID>1c10797f-d964-442d-9964-271e60c85516_hxjwwq6v1rvya!App</RegisteredUserModeAppID>
+    <RegisteredPackageID>1c10797f-d964-442d-9964-271e60c85516</RegisteredPackageID>
+    <RegisteredPackagePublisher>CN=ihainan</RegisteredPackagePublisher>
+    <RegisteredVersion>1.0.0.0</RegisteredVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\bin\Debug\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-09-14T15:15:37.127</Modified>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\bin\Debug\ZhihuDailyForWindows8.exe">
+      <PackagePath>ZhihuDailyForWindows8.exe</PackagePath>
+      <Modified>2013-09-14T15:17:32.797</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\bin\Debug\ZhihuDailyForWindows8.pdb">
+      <PackagePath>ZhihuDailyForWindows8.pdb</PackagePath>
+      <Modified>2013-09-14T15:17:32.737</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\Assets\Logo.png">
+      <PackagePath>Assets\Logo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-09-10T04:11:34.943</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\Assets\Logo_Blue.png">
+      <PackagePath>Assets\Logo_Blue.png</PackagePath>
+      <Modified>2013-09-07T04:49:26.148</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\Assets\SmallLogo.png">
+      <PackagePath>Assets\SmallLogo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-09-10T04:23:57.402</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\Assets\SplashScreen.png">
+      <PackagePath>Assets\SplashScreen.png</PackagePath>
+      <Modified>2012-03-15T12:42:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\Assets\Splash_9_10.png">
+      <PackagePath>Assets\Splash_9_10.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-09-10T04:19:45.196</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\Assets\StoreLogo.png">
+      <PackagePath>Assets\StoreLogo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2012-03-15T12:42:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\Assets\Web_Logo.png">
+      <PackagePath>Assets\Web_Logo.png</PackagePath>
+      <Modified>2013-09-07T03:52:37.548</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\Assets\WideLogo.png">
+      <PackagePath>Assets\WideLogo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-09-10T04:15:58.942</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\Assets\test.jpg">
+      <PackagePath>Assets\test.jpg</PackagePath>
+      <Modified>2013-09-10T14:57:29.775</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\Assets\test2.jpg">
+      <PackagePath>Assets\test2.jpg</PackagePath>
+      <Modified>2013-09-11T06:26:49.477</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\Assets\test3.jpg">
+      <PackagePath>Assets\test3.jpg</PackagePath>
+      <Modified>2013-09-11T12:00:34.078</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\Common\ReadMe.txt">
+      <PackagePath>Common\ReadMe.txt</PackagePath>
+      <Modified>2013-09-11T11:18:42.886</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\bin\Debug\App.xaml">
+      <PackagePath>App.xaml</PackagePath>
+      <Modified>2013-09-14T10:25:36.062</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\bin\Debug\Common\CustomStyles.xaml">
+      <PackagePath>Common\CustomStyles.xaml</PackagePath>
+      <Modified>2013-09-14T10:25:18.426</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\bin\Debug\NewsDetail.xaml">
+      <PackagePath>NewsDetail.xaml</PackagePath>
+      <Modified>2013-09-14T10:36:14.858</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\bin\Debug\Common\StandardStyles.xaml">
+      <PackagePath>Common\StandardStyles.xaml</PackagePath>
+      <Modified>2013-09-14T12:54:42.560</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\bin\Debug\MainPage.xaml">
+      <PackagePath>MainPage.xaml</PackagePath>
+      <Modified>2013-09-14T10:58:15.335</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\ihainan\documents\visual studio 2012\Projects\ZhihuDailyForWindows8\ZhihuDailyForWindows8\bin\Debug\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+      <Modified>2013-09-14T15:15:36.562</Modified>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>
