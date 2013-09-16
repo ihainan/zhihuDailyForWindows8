@@ -22,14 +22,11 @@ namespace ZhihuDailyForWindows8
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        // ZhihuDailyFileManager fm = new ZhihuDailyFileManager();
-        // private ZhihuDailyXMLParser xp = new ZhihuDailyXMLParser();
         ScrollViewer scrollViewer;
         private ZhihuNews zn = new ZhihuNews();
         private CollectionViewSource newsCollection;
-        private bool isEnableLoadMore = true;
-        private int days = 0;
-        public double maxNum;       // use to load more data 
+        private bool isEnableUpdateOrLoadDate = true;
+        public double maxNum;        // use to load more data 
         public MainPage()
         {
             this.InitializeComponent();
@@ -42,38 +39,15 @@ namespace ZhihuDailyForWindows8
         /// </summary>
         /// <param name="e">Event data that describes how this page was reached.  The Parameter
         /// property is typically used to configure the page.</param>
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.NavigationMode == Windows.UI.Xaml.Navigation.NavigationMode.Back)
                 return;
-            /* Load info */
-            isEnableLoadMore = false;
             newsCollection = new CollectionViewSource();
-            loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            if (await zn.loadNews(DateTime.Today) == false)
-            {
-                var messageDialog = new Windows.UI.Popups.MessageDialog("网络错误，请检查您的网络连接再重新尝试该操作");
-                var result = messageDialog.ShowAsync();
-                loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                isEnableLoadMore = true;
-                return;
-            }
             newsCollection.IsSourceGrouped = true;
             newsCollection.Source = zn.latestNews;
             newsCollection.ItemsPath = new PropertyPath("News");
-            newsContent.ItemsSource = newsCollection.View;
-            newsContentListView.ItemsSource = newsCollection.View;
-            if (await zn.loadExtra() == false)
-            {
-                var messageDialog = new Windows.UI.Popups.MessageDialog("网络错误，请检查您的网络连接再重新尝试该操作");
-                var result = messageDialog.ShowAsync();
-                loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                isEnableLoadMore = true;
-                return;
-            }
-            isEnableLoadMore = true;
-            loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-            days = 1;
+            this.loadMoreNewsItems(false);
         }
 
         /* click item */
@@ -84,63 +58,6 @@ namespace ZhihuDailyForWindows8
                 string url = ((NewsItem)e.ClickedItem).url;
                 this.Frame.Navigate(typeof(NewsDetail), url);
             }
-        }
-
-        /* refresh content */
-        private async void Button_Click_refresh(object sender, RoutedEventArgs e)
-        {
-            /* Load info */
-            bottomAppBar.IsOpen = false;
-
-            newsCollection = new CollectionViewSource();
-            loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            if (await zn.loadNews(DateTime.Today) == false)
-            {
-                var messageDialog = new Windows.UI.Popups.MessageDialog("网络错误，请检查您的网络连接再重新尝试该操作");
-                var result = messageDialog.ShowAsync();
-                loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                return;
-            }
-            newsCollection.IsSourceGrouped = true;
-            newsCollection.Source = zn.latestNews;
-            newsCollection.ItemsPath = new PropertyPath("News");
-
-            newsContent.ItemsSource = newsCollection.View;
-            newsContentListView.ItemsSource = newsCollection.View;
-            if (await zn.loadExtra() == false)
-            {
-                var messageDialog = new Windows.UI.Popups.MessageDialog("网络错误，请检查您的网络连接再重新尝试该操作");
-                var result = messageDialog.ShowAsync();
-                loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                return;
-            }
-            loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-        }
-
-        /* load more items */
-        private async void Button_Click_loadMore(object sender, RoutedEventArgs e)
-        {
-            loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            if (await zn.loadNews(DateTime.Today.AddDays(-1.0 * days)) == false)
-            {
-                var messageDialog = new Windows.UI.Popups.MessageDialog("网络错误，请检查您的网络连接再重新尝试该操作");
-                var result = messageDialog.ShowAsync();
-                loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                return;
-            }
-            newsCollection.Source = zn.latestNews;
-            newsCollection.ItemsPath = new PropertyPath("News");
-            newsContent.ItemsSource = newsCollection.View;
-            newsContentListView.ItemsSource = newsCollection.View;
-            if (await zn.loadExtra(zn.latestNews.Count - 1) == false)
-            {
-                var messageDialog = new Windows.UI.Popups.MessageDialog("网络错误，请检查您的网络连接再重新尝试该操作");
-                var result = messageDialog.ShowAsync();
-                loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                return;
-            }
-            loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-            ++days;
         }
 
         // change the visualstate when the size of window is changed
@@ -176,10 +93,7 @@ namespace ZhihuDailyForWindows8
                 scrollViewer = this.FindVisualChildByName<ScrollViewer>(this.newsContent, "ScrollViewer");
                 var scroollBar = this.FindVisualChildByName<ScrollBar>(scrollViewer, "HorizontalScrollBar");
                 scrollViewer.ScrollToHorizontalOffset(10);
-                // tb_scrollPosition.Text = scroollBar.Minimum + " " + scroollBar.Maximum + scroollBar.LargeChange; ;
                 scroollBar.Minimum = 0;
-                // scroollBar.Maximum = ;
-                
                 scroollBar.ValueChanged += scroollBar_ValueChanged;
             }
             catch (Exception error)
@@ -224,75 +138,107 @@ namespace ZhihuDailyForWindows8
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public async void scroollBar_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        public void scroollBar_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
             ScrollBar scrollbar = sender as ScrollBar;
-            if ((isEnableLoadMore && maxNum != scrollViewer.HorizontalOffset && scrollViewer.ScrollableWidth == scrollViewer.HorizontalOffset))
+            if ((isEnableUpdateOrLoadDate && maxNum != scrollViewer.HorizontalOffset && scrollViewer.ScrollableWidth == scrollViewer.HorizontalOffset))
             {
-                isEnableLoadMore = false;
                 maxNum = scrollViewer.HorizontalOffset;
-                loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                sp_loadmore.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                if (await zn.loadNews(DateTime.Today.AddDays(-1.0 * days)) == false)
-                {
-                    var messageDialog = new Windows.UI.Popups.MessageDialog("网络错误，请检查您的网络连接再重新尝试该操作");
-                    var result = messageDialog.ShowAsync();
-                    loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                    sp_loadmore.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                    return;
-                }
-                sp_loadmore.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                newsCollection.Source = zn.latestNews;
-                newsCollection.ItemsPath = new PropertyPath("News");
-                newsContent.ItemsSource = newsCollection.View;
-                newsContentListView.ItemsSource = newsCollection.View;
-                
-                if (await zn.loadExtra(zn.latestNews.Count - 1) == false)
-                {
-                    var messageDialog = new Windows.UI.Popups.MessageDialog("网络错误，请检查您的网络连接再重新尝试该操作");
-                    var result = messageDialog.ShowAsync();
-                    loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                    isEnableLoadMore = true;
-                    return;
-                }
-                loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                isEnableLoadMore = true;
-                ++days;
-                // scrollViewer.HorizontalOffset += 10;
-                
+                this.loadMoreNewsItems();
             }
-            if (isEnableLoadMore &&  e.NewValue == scrollbar.Minimum)
+            if (isEnableUpdateOrLoadDate && e.NewValue == scrollbar.Minimum)
             {
-                isEnableLoadMore = false;
-                newsCollection = new CollectionViewSource();
-                loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                sp_refresh.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                if (await zn.loadNews(DateTime.Today) == false)
-                {
-                    var messageDialog = new Windows.UI.Popups.MessageDialog("网络错误，请检查您的网络连接再重新尝试该操作");
-                    var result = messageDialog.ShowAsync();
-                    loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                    sp_refresh.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                    isEnableLoadMore = true;
-                    return;
-                }
-                sp_refresh.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                newsCollection.IsSourceGrouped = true;
-                newsCollection.Source = zn.latestNews;
-                newsCollection.ItemsPath = new PropertyPath("News");
-
-                newsContent.ItemsSource = newsCollection.View;
-                newsContentListView.ItemsSource = newsCollection.View;
-                if (await zn.loadExtra() == false)
-                {
-                    var messageDialog = new Windows.UI.Popups.MessageDialog("网络错误，请检查您的网络连接再重新尝试该操作");
-                    var result = messageDialog.ShowAsync();
-                    loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                    return;
-                }
-                loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                isEnableLoadMore = true;
+                // this.updateNewsItems();
             }
+
         }
+
+        /* load more items and update the interface */
+        private async void loadMoreNewsItems(bool isDisplayProgressRing = true)
+        {
+            DateTime day;
+            isEnableUpdateOrLoadDate = false;                   // disable another load request
+            loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            if(isDisplayProgressRing)
+                sp_loadmore.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            if (zn.latestNews.Count == 0)
+                day = DateTime.Today;
+            else
+                day = zn.latestNews[zn.latestNews.Count - 1].date.AddDays(-1.0);
+            if (await zn.loadNews(day) == false)
+            {
+                /* load error */
+                var messageDialog = new Windows.UI.Popups.MessageDialog("网络错误，请检查您的网络连接再重新尝试该操作");
+                var result = messageDialog.ShowAsync();
+                loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                sp_loadmore.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                isEnableUpdateOrLoadDate = true;
+                return;
+            }
+
+            /* hide progressBar after loading text finish and then display the text */
+            sp_loadmore.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            newsCollection.Source = zn.latestNews;
+            newsCollection.ItemsPath = new PropertyPath("News");
+            newsContent.ItemsSource = newsCollection.View;
+            newsContentListView.ItemsSource = newsCollection.View;
+
+            /* load images */
+            if (await zn.loadExtra(zn.latestNews.Count - 1) == false)
+            {
+                var messageDialog = new Windows.UI.Popups.MessageDialog("网络错误，请检查您的网络连接再重新尝试该操作");
+                var result = messageDialog.ShowAsync();
+                loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                isEnableUpdateOrLoadDate = true;
+                return;
+            }
+
+            /* finish */
+            loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            isEnableUpdateOrLoadDate = true;
+        }
+
+        /* get the latest news and update the interface */
+        private async void updateNewsItems()
+        {
+            isEnableUpdateOrLoadDate = false;           // disable another update request
+            maxNum = 0;
+            // jump to the left of scrollview
+            loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Visible;        // display progressBar and progressRing
+            sp_refresh.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            if (await zn.updateNews(DateTime.Today) == false)
+            {
+                /* refresh error */
+                var messageDialog = new Windows.UI.Popups.MessageDialog("网络错误，请检查您的网络连接再重新尝试该操作");
+                var result = messageDialog.ShowAsync();
+                loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                sp_refresh.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                isEnableUpdateOrLoadDate = true;
+                return;
+            }
+
+            /* hide progressRing after loading text finish and then display the text */
+            sp_refresh.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            newsCollection.IsSourceGrouped = true;
+            newsCollection.Source = zn.latestNews;
+            newsCollection.ItemsPath = new PropertyPath("News");
+            newsContent.ItemsSource = newsCollection.View;
+            newsContentListView.ItemsSource = newsCollection.View;
+
+            /* load images */
+            if (await zn.loadExtra() == false)
+            {
+                var messageDialog = new Windows.UI.Popups.MessageDialog("网络错误，请检查您的网络连接再重新尝试该操作");
+                var result = messageDialog.ShowAsync();
+                loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                isEnableUpdateOrLoadDate = true;
+                return;
+            }
+
+            /* finish refresh */
+            loadingProgress.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            isEnableUpdateOrLoadDate = true;
+        }
+
     }
 }

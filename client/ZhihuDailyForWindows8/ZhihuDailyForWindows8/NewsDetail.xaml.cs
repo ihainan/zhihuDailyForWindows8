@@ -50,56 +50,6 @@ namespace ZhihuDailyForWindows8
             newsTitle.Text = contentXML["title"];
             string htmlCode = contentXML["body"];
             wv.NavigateToString(htmlCode);
-
-            // DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
-            // dataTransferManager.DataRequested += new TypedEventHandler<DataTransferManager,
-               //  DataRequestedEventArgs>(this.ShareImageHandler);
-
-        }
-
-        private void RegisterForShare()
-        {
-            DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
-            dataTransferManager.DataRequested += new TypedEventHandler<DataTransferManager,
-                DataRequestedEventArgs>(this.ShareImageHandler);
-        }
-
-        private async void ShareImageHandler(DataTransferManager sender,
-    DataRequestedEventArgs e)
-        {
-            DataRequest request = e.Request;
-            request.Data.Properties.Title = newsTitle.Text + "(分享自 @知乎日报) " + contentXML["share_url"];
-            request.Data.Properties.Description = newsTitle.Text + "(分享自 @知乎日报) " + contentXML["share_url"];
-
-            // Because we are making async calls in the DataRequested event handler,
-            //  we need to get the deferral first.
-            DataRequestDeferral deferral = request.GetDeferral();
-
-            // Make sure we always call Complete on the deferral.
-            try
-            {
-                ZhihuDailyFileManager fm = new ZhihuDailyFileManager();
-                /*string filename = await fm.downloadFile(contentXML["thumbnail"]);
-                StorageFile thumbnailFile =
-                    await Package.Current.InstalledLocation.GetFileAsync(filename)  ;
-                request.Data.Properties.Thumbnail =
-                    RandomAccessStreamReference.CreateFromFile(thumbnailFile);*/
-                string filename = await fm.downloadFile(contentXML["share_image"]);
-                if (filename != null)
-                {
-                    StorageFile imageFile =
-                        await ApplicationData.Current.LocalFolder.GetFileAsync(filename);
-                    request.Data.SetBitmap(RandomAccessStreamReference.CreateFromFile(imageFile));
-                }
-                else
-                {
-                    return;
-                }
-            }
-            finally
-            {
-                deferral.Complete();
-            }
         }
 
         /// <summary>
