@@ -9,15 +9,56 @@
 ?>
 <?php
 class ZhihuDaily{
-	private $titles_api_url = "http://news.at.zhihu.com/api/1.2/news/before/";
+	private $titles_api_url_ori = "http://news.at.zhihu.com/api/1.2/news/before/";
+	private $titles_api_uri = "http://news.at.zhihu.com/api/1.2/news/before/";
+	private $domain = "zhdaily";
 
-	/* show the news items */
-	public function showTitles($date = null){
+	/* get the news items from local storage */
+	public function getTitles($date = null){
+		$s = new SaeStorage();
+		$root = "titles";
+		/* get file from SaeStorage*/
+		if($date == null)
+			$date = date("Ymd");
+		$file_name = $date.".xml";
+		if($date == date("Ymd")){
+			// today
+			if($s -> fileExists($this -> domain, $file_name) == true){
+				$yesterday = date ("Ymd", strtotime("-1 day", strtotime($date)));
+				$yesterday_file_name = $yesterday.".xml";
+				$content = $s -> read($this -> domain, $file_name);
+				if($s -> fileExists($this -> domain, $yesterday_file_name)){
+					$yesterday_content = $s -> read($this -> domain, $yesterday_file_name);
+					if($yesterday_content == $content){
+						$this -> showNoContent($root);
+						return "";
+					}
+				}
+
+			}
+			else{
+				$this -> showNoContent($root);
+				return "";
+			}
+		}
+		else{
+			if($s -> fileExists($this -> domain, $file_name)){
+				$content = $s -> read($domain, $file_name);
+			}
+			else{
+				$this -> showNoContent($root);
+				return "";
+			}
+		}
+		return $content;
+	}
+
+	/* get the news items from Zhihu */
+	public function getTitlesFromZhihuAPI($date){
 		if($date != null)
-			$this -> titles_api_url = $this -> titles_api_url.($date + 1);
+			$this -> titles_api_url = $this -> titles_api_url_ori.($date + 1);
 		else
 			$this -> titles_api_url = 'http://news.at.zhihu.com/api/1.2/news/latest';
-
 		/* get data from zhihuDaily API */
 		$json_data = json_decode(file_get_contents($this -> titles_api_url), 1);
 		$results = array();
@@ -39,7 +80,6 @@ class ZhihuDaily{
 		$root = "titles";
 		$xml_data = new SimpleXMLElement("<?xml version=\"1.0\" encoding=\"GB2312\"?><".$root."></".$root.">");
 		$this -> arrayToXML($results, $xml_data);
-		echo $xml_data -> asXML();
 		return $xml_data;
 	}
 
