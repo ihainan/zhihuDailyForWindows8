@@ -30,15 +30,13 @@ class ZhihuDaily{
 				if($s -> fileExists($this -> domain, $yesterday_file_name)){
 					$yesterday_content = $s -> read($this -> domain, $yesterday_file_name);
 					if($yesterday_content == $content){
-						$this -> showNoContent($root);
-						return "";
+						return $this -> showNoContent($root);
 					}
 				}
 
 			}
 			else{
-				$this -> showNoContent($root);
-				return "";
+				return $this -> showNoContent($root);
 			}
 		}
 		else{
@@ -46,8 +44,7 @@ class ZhihuDaily{
 				$content = $s -> read($domain, $file_name);
 			}
 			else{
-				$this -> showNoContent($root);
-				return "";
+				return $this -> showNoContent($root);
 			}
 		}
 		return $content;
@@ -88,8 +85,7 @@ class ZhihuDaily{
 		$root = "news";
 		$xml_data = new SimpleXMLElement("<?xml version=\"1.0\" encoding=\"GB2312\"?><".$root."></".$root.">");
 		if(!isset($url) || $url == ""){
-			$this -> showNoContent($root);
-			return;
+			return $this -> showNoContent($root);
 		}
 
 		/* get data from zhihuDaily API */
@@ -112,7 +108,7 @@ class ZhihuDaily{
 
 		/*covert array into XML file and then show the content */
 		$this -> arrayToXML($results, $xml_data);
-		echo $xml_data -> asXML();
+		return $xml_data -> asXML();
 	}
 
 	/* HTML Handler */
@@ -163,7 +159,7 @@ class ZhihuDaily{
 
 	/* show special content if no content can be shown */
 	private function showNoContent($root){
-		echo "<?xml version=\"1.0\" encoding=\"GB2312\"?><".$root."></".$root.">";
+		return "<?xml version=\"1.0\" encoding=\"GB2312\"?><".$root."></".$root.">";
 	}
 
 	/* corvert array to XML recursively*/

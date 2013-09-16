@@ -12,5 +12,5 @@ header("text/xml");
 require_once('ZhihuDaily.class.php');
 @$url = $_GET['url'];
 $zhihu = new ZhihuDaily();
-$zhihu -> getNewsContent($url);
+echo $zhihu -> getNewsContent($url);
 ?>
