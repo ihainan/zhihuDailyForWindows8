@@ -9,8 +9,6 @@
     <Page.BottomAppBar>
         <AppBar x:Name="bottomAppBar" Padding="10, 0, 10, 0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button x:ConnectionId='1' Style="{StaticResource RefreshAppBarButtonStyle}"                              />
-                <Button x:ConnectionId='2' Style="{StaticResource DownloadAppBarButtonStyle}"                               />
             </StackPanel>
         </AppBar>
     </Page.BottomAppBar>
@@ -38,7 +36,7 @@
             <ProgressRing x:Name="pr_refresh" IsActive="True" Foreground="Blue"  Margin="0, 0, 0, 20"/>
             <TextBlock Text="正在加载.."/>
         </StackPanel>
-        <GridView x:ConnectionId='3'
+        <GridView x:ConnectionId='1'
             x:Name="newsContent"
             AutomationProperties.AutomationId="ItemGridView"
             AutomationProperties.Name="Grouped Items"
@@ -85,7 +83,7 @@
         </GridView>
 
         <!-- Vertical scrolling list only used when snapped -->
-        <ListView x:ConnectionId='4'
+        <ListView x:ConnectionId='2'
             x:Name="newsContentListView"
             AutomationProperties.AutomationId="ItemListView"
             AutomationProperties.Name="Grouped Items"

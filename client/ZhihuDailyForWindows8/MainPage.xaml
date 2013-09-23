@@ -9,8 +9,6 @@
     <Page.BottomAppBar>
         <AppBar x:Name="bottomAppBar" Padding="10, 0, 10, 0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Style="{StaticResource RefreshAppBarButtonStyle}" Click="Button_Click_refresh" />
-                <Button Style="{StaticResource DownloadAppBarButtonStyle}" Click="Button_Click_loadMore" />
             </StackPanel>
         </AppBar>
     </Page.BottomAppBar>

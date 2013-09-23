@@ -43,7 +43,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <WebView x:Name="wv">
+            <WebView x:Name="wv" LoadCompleted="wv_LoadCompleted_1" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             </WebView>
         </Grid>
             

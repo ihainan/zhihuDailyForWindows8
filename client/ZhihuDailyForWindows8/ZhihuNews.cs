@@ -23,16 +23,41 @@ namespace ZhihuDailyForWindows8
     {
         static public int defaultDaysOfNews = 0;                   // get the last 5 days' news acquiescently
         public List<OneDayNews> latestNews = new List<OneDayNews>();
-        /* load news */
+
+        /* load news and add them into latestNews list */
         public async Task<bool> loadNews(DateTime day1, bool isOnlineDownload = false)
         {
             DateTime day2 = day1.AddDays(-defaultDaysOfNews);
-            // latestNews = new List<OneDayNews>();
             for (DateTime day = day1; day2.CompareTo(day) <= 0; day = day.AddDays(-1))
             {
                 OneDayNews oneDayNews = new OneDayNews(day);
                 if (await oneDayNews.updateNews(isOnlineDownload) == false)
                     return false;
+                if (oneDayNews.News.Count == 0)
+                {
+                    day2 = day2.AddDays(-1.0f);
+                    continue;
+                }
+                latestNews.Add(oneDayNews);
+            }
+            return true;
+        }
+
+        /* update all the news */
+        public async Task<bool> updateNews(DateTime day1)
+        {
+            DateTime day2 = day1.AddDays(-defaultDaysOfNews);
+            latestNews = new List<OneDayNews>();
+            for (DateTime day = day1; day2.CompareTo(day) <= 0; day = day.AddDays(-1))
+            {
+                OneDayNews oneDayNews = new OneDayNews(day);
+                if (await oneDayNews.updateNews() == false)
+                    return false;
+                if (oneDayNews.News.Count == 0)
+                {
+                    day2 = day2.AddDays(-1.0f);
+                    continue;
+                }
                 latestNews.Add(oneDayNews);
             }
             return true;
@@ -43,7 +68,6 @@ namespace ZhihuDailyForWindows8
         {
             
             foreach (OneDayNews oneDayNews in latestNews.Skip(from).Take(latestNews.Count - from)) {
-                // var news = oneDayNews.News;
                 int count = oneDayNews.News.Count;
                 for (int i = 0; i < count; ++i) {
                     NewsItem itemTmp = oneDayNews.News[i];
